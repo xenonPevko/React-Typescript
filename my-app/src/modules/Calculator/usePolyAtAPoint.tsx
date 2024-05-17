@@ -11,12 +11,12 @@ export default function usePolyAtAPoint(
     const calc = new PolynomialCalculator();
     return () => {
         if (refPoly && refX && refPolyAtAPoint) {
-            const poly = calc.getPolynomial(refPoly.current?.value || '') || '';
+            const poly = universalCalc.getPolynomial(refPoly.current?.value || '');
             const x = universalCalc.getValue(refX.current?.value || '');
             const polyAtAPoint = poly.getValue(x);
             if (refPolyAtAPoint.current) {
-                refPolyAtAPoint.current.value = polyAtAPoint;
+                refPolyAtAPoint.current.value = polyAtAPoint.toString();
             }
-        }
+        } 
     }
 }

@@ -31,7 +31,11 @@ class VectorCalculator implements ICalculator<Vector> {
     }
 
     pow(a: Vector, n: number): Vector {
-        return new Vector(a.values.map(elem => this.calc.pow(elem, n)));
+        let ans: Vector = a;
+        for (let i = 1; i < n; i++) {
+            ans = this.mult(ans, a);
+        }
+        return ans;
     }
 
     prod(a: Vector, p: number): Vector {

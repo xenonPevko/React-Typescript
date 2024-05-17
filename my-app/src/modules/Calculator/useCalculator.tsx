@@ -10,14 +10,14 @@ export default function useCalculator(
     const calc = new Calculator();
     return (operand: EOperand) => {
         if (refA && refB && refC) {
-            const A = refA.current?.value || '';
+            const A = refA.current?.value || ''; 
             const B = refB.current?.value || '';
             if (refC.current) {
                 if (operand === EOperand.prod || operand === EOperand.pow) {
-                    refC.current.value = calc[operand](calc.getValue(A), parseFloat(B))?.toString() || '';
+                    refC.current.value = calc[operand](calc.getValue(A), parseFloat(B))?.toString() || 'чё-то пошло не так, товарищ... :(';
                     return;
                 }
-                refC.current.value = calc[operand](calc.getValue(A), calc.getValue(B))?.toString() || '';
+                refC.current.value = calc[operand](calc.getValue(A), calc.getValue(B))?.toString() || 'чё-то пошло не так, товарищ... :(';
             }
         }
     }

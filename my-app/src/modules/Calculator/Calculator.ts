@@ -22,6 +22,7 @@ class Calculator implements ICalculator<AnyType> {
     matrix(values?: AnyType[][]): Matrix { return new Matrix(values); }
 
     getValue(str: string): AnyType {
+        if (str.includes('*x^')) {return this.getPolynomial(str)};
         if (str.includes('\n')) { return this.getMatrix(str) };
         if (str.includes('(')) { return this.getVector(str) };
         if (str.includes('i')) { return this.getComplex(str) };
@@ -76,6 +77,32 @@ class Calculator implements ICalculator<AnyType> {
         return new Complex();
     }
 
+    getPolynomial(str: string | Member[]): Polynomial {
+        if (str instanceof Array) {
+            return new Polynomial(str)
+        }
+        if (typeof str == 'string' && str) {
+            const members: Member[] = [];
+            const arrStr = str.replace(/\s+/g, '').replace(/-/g, ' -').split(/[+ ]/g);
+            for (let i = 0; i < arrStr.length; i++) {
+                members.push(this.getMember(arrStr[i]));
+            }
+            return new Polynomial(members);
+        }
+        return new Polynomial();
+    }
+
+    getMember(str: string): Member {
+        if (typeof str === 'number') {
+            return new Member(str);
+        }
+        if (typeof str === 'string' && str) {
+            const arrStr = str.split('*x^');
+            return new Member(parseFloat(arrStr[0]), parseInt(arrStr[1]));
+        }
+        return new Member();
+    }
+
     get(elem?: AnyType): ICalculator<AnyType> {
         if (elem instanceof Matrix) {
             return new MatrixCalculator(this.get(elem.values[0][0]));
@@ -85,6 +112,9 @@ class Calculator implements ICalculator<AnyType> {
         }
         if (elem instanceof Complex) {
             return new ComplexCalculator();
+        }
+        if (elem instanceof Polynomial) {
+            return new PolynomialCalculator();
         }
         return new RealCalculator();
     }

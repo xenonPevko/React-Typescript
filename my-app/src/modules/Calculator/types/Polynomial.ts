@@ -1,17 +1,17 @@
 import Calculator from "../Calculator.ts";
+import AnyType from "./AnyType.ts";
+import { Member } from "./index.ts";
 
 class Polynomial {
 
-    poly: number[];
-    power: number;
-    value: number;
+    poly: Member[];
 
-    constructor(poly = []) {
+    constructor(poly: Member[] = []) {
         this.poly = poly;
         this.poly.sort((a, b) => b.power - a.power);
     }
 
-    getValue(x) {
+    getValue(x: AnyType): AnyType {
         const calc = new Calculator;
         return this.poly.reduce((S, elem) =>
             calc.add(
@@ -20,11 +20,11 @@ class Polynomial {
                     calc.pow(x, elem.power),
                     elem.value)
             ),
-            calc.zero(null, x)
+            calc.zero(x)
         );
     }
 
-    toString() {
+    toString(): string {
         return this.poly.map(
             (el, i) => (el.value > 0) ?
                 `${(i === 0) ? '' : ' + '}${el.toString()}` :

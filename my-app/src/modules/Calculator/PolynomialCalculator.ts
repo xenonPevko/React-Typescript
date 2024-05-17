@@ -1,56 +1,29 @@
 import { Member, Polynomial } from "./types/index.ts";
 import Calculator from "./Calculator.ts";
+import ICalculator from "./calculators/ICalculator.ts";
+import AnyType from "./types/AnyType.ts";
 
-class PolynomialCalculator {
-    polynomial(members: Member[]): Polynomial {
+class PolynomialCalculator implements ICalculator<Polynomial> {
+
+    polynomial(members: Member[] = []): Polynomial {
         return new Polynomial(members);
     }
 
-    nothing(members: Member[]): Member[] | undefined {
+    removeZeros(members: Member[]): Member[] {
         for (let i = members.length - 1; i >= 0; i--) {
             if (members[i].value === 0) {
                 return members.slice(0, i);
             }
         }
+        return members;
     }
 
-    getValue(str: string): Polynomial | undefined {
-        return this.getPolynomial(str);
-    }
-
-    getMember(str: string): Member | undefined {
-        if (typeof str === 'number') {
-            return new Member(str);
-        }
-        if (str && typeof str === 'string') {
-            const arrStr: string[] = str.split('*x^');
-            // а parseInt точно работает так как я думаю???!!....
-            return new Member(parseInt(arrStr[0]), parseInt(arrStr[1]));
-        }
-    }
-
-    getPolynomial(str: string): Polynomial | undefined {
-        if (str instanceof Array) {
-            return new Polynomial(str);
-        }
-        if (str && typeof str === 'string') {
-            const members = [];
-            const arrStr = str.replace(/\s+/g, '').replace(/-/g, ' -').split(/[+ ]/g);
-            for (let i = 0; i < arrStr.length; i++) {
-                members.push(this.getMember(arrStr[i]));
-            }
-            return new Polynomial(members);
-        }
-    }
-
-    add(a: Member, b: Member): Member | undefined {
-        let calc: Calculator;
+    add(a: Polynomial, b: Polynomial): Polynomial {
         const members: Member[] = [];
-        let poly: number[];
         a.poly.forEach(elemA => {
             const member = b.poly.find(elemB => elemB.power === elemA.power);
             if (member) {
-                members.push(new Member(calc.add(elemA.value, member.value), elemA.power))
+                members.push(new Member(elemA.value + member.value, elemA.power))
             }
             else {
                 members.push(new Member(elemA.value, elemA.power))
@@ -61,55 +34,60 @@ class PolynomialCalculator {
                 members.push(new Member(elemB.value, elemB.power));
             }
         });
-        this.nothing(members);
-        return new Polynomial(members);
+        return new Polynomial(this.removeZeros(members));
     }
 
-    sub(a: Member, b: Member): Member | undefined {
-        const calc = new Calculator;
-        const members = [];
+    sub(a: Polynomial, b: Polynomial): Polynomial {
+        const members: Member[] = [];
         a.poly.forEach(elemA => {
             const member = b.poly.find(elemB => elemB.power == elemA.power);
             if (member) {
-                members.push(new Member(calc.sub(elemA.value, member.value), elemA.power));
+                members.push(new Member(elemA.value - member.value, elemA.power));
             } else {
                 members.push(new Member(elemA.value, elemA.power));
             }
         });
         b.poly.forEach(elemB => {
             if (!members.find(el => el.power == elemB.power)) {
-                members.push(new Member(calc.prod(elemB.value, -1), elemB.power));
+                members.push(new Member(-elemB.value, elemB.power));
             }
         });
-        this.nothing(members);
-        return new Polynomial(members);
+        return new Polynomial(this.removeZeros(members));
     }
 
-    mult(a: Member, b: Member): Member | undefined {
-        const calc = new Calculator;
+    mult(a: Polynomial, b: Polynomial): Polynomial {
         let polynomial = new Polynomial;
         a.poly.forEach(elemA => {
-            const members = [];
+            const members: Member[] = [];
             b.poly.forEach(elemB => {
-                members.push(new Member(calc.mult(elemA.value, elemB.value), calc.add(elemA.power, elemB.power)));
+                members.push(new Member(elemA.value * elemB.value, elemA.power + elemB.power));
             });
-            this.nothing(members);
-            polynomial = this.add(polynomial, new Polynomial(members));
+            polynomial = this.add(polynomial, new Polynomial(this.removeZeros(members)));
         });
         return polynomial;
     }
 
-    prod(a: Member, p: number): Member | undefined {
+    div() {
+        return null;
+    }
+
+    pow(a: Polynomial, n: number): Polynomial {
+        let ans: Polynomial = a;
+        for (let i = 1; i < n; i++) {
+            ans = this.mult(ans, a);
+        }
+        return ans;
+    }
+
+    prod(a: Polynomial, p: number): Polynomial {
         if (p === 0) {
             return this.zero();
         }
-        const calc = new Calculator;
-        const members = [];
+        const members: Member[] = [];
         a.poly.forEach(elemA => {
-            members.push(new Member(calc.prod(elemA.value, p), elemA.power));
+            members.push(new Member(elemA.value * p, elemA.power));
         });
-        this.nothing(members);
-        return new Polynomial(members);
+        return new Polynomial(this.removeZeros(members));
     }
 
     //0*x^0

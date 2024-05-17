@@ -1,8 +1,10 @@
+import AnyType from "./AnyType";
+
 class Member {
     value: number;
     power: number;
 
-    constructor (value = 0, power = 0) {
+    constructor (value: number = 0, power: number = 0) {
         this.value = value;
         this.power = power;
     }
