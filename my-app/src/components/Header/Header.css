@@ -1,0 +1,114 @@
+body {
+    background-color:lightpink;
+}
+
+.beautyDiv {
+    text-align: center;
+    border-radius: 20px;
+    padding: 10px; 
+    background: #fde4ee; 
+    border: 2px solid #b55a5d; 
+    margin: 10px;
+}
+
+.beautyP {
+    text-align: center;
+    font-size: 35px;
+    font-family: "Courier", monospace;
+    font-weight: 600;
+    color: #b55a5d; 
+}
+
+p {
+    color:#b55a5d;
+}
+
+.usualImg {
+    /*left: 0px;
+    bottom: 0px;*/
+    height: 300px;
+    /*position: fixed;*/ 
+}
+
+.microImg {
+    height: 200px;
+}
+
+.macroImg {
+    height: 600px;
+}
+
+.catImg {
+    left: 0px;
+    bottom: 0px;
+    height: 200px;
+    position: fixed;
+}
+
+textarea {
+    width: 200px;
+    height: 70px;
+    resize: none;
+    border-radius: 20px;
+    padding: 10px; 
+    background: rgb(255, 227, 232); 
+    border: 2px solid #b55a5d; 
+    margin: 10px;
+}
+
+input {
+    width: 200px;
+    height: 15px;
+    resize: none;
+    border-radius: 20px;
+    padding: 10px; 
+    background: rgb(255, 227, 232); 
+    border: 2px solid #b55a5d; 
+    margin: 10px;
+}
+
+.beautyButton {
+    border-radius: 20px;
+    padding: 10px; 
+    background: rgb(255, 227, 232); 
+    border: 2px solid #b55a5d; 
+    margin: 10px;
+    font-size: 15px;
+    /*font-family: "Courier", monospace;*/
+    color: #b55a5d; 
+}
+
+button {
+    border-radius: 20px;
+    padding: 10px; 
+    background: rgb(255, 227, 232); 
+    border: 2px solid #b55a5d; 
+    margin: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.checkbox {
+    left: 540px;
+    top: 500px;
+    position: absolute;
+    font-size: 15pt;
+    color: #b55a5d; 
+}
+
+.selectFigures {
+    left: 550px;
+    top: 215px;
+    position: absolute;
+    font-size: 15pt;
+    color: #b55a5d; 
+}
+
+input[type=checkbox] {
+    background: #ffc8fc;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #9e066b;
+}
