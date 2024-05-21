@@ -17,6 +17,6 @@ export default function usePolyAtAPoint(
             if (refPolyAtAPoint.current) {
                 refPolyAtAPoint.current.value = polyAtAPoint.toString();
             }
-        } 
+        }
     }
 }

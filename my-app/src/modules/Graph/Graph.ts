@@ -94,10 +94,10 @@ class Graph {
         this.context.closePath();
     };
 
-    point (x: number, y: number, color = '#b55a5d', size: number): void{
+    point (x: number, y: number, color = '#b55a5d', size = 2): void{
         this.context.beginPath();
         this.context.strokeStyle = color;
-        this.context.arc(this.xs(x), this.ys(y), size || 2, 0, this.PI2);
+        this.context.arc(this.xs(x), this.ys(y), size, 0, this.PI2);
         this.context.stroke();
         this.context.closePath();
     };

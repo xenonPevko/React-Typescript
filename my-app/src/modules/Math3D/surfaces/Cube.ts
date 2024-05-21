@@ -1,6 +1,8 @@
-Surfaces.prototype.cube = (edge = 10, color) => {
-    return new Surface(
-        [
+import { Point, Edge, Polygon, Surface } from "../entites/index.ts";
+
+class Cube extends Surface {
+    constructor(edge: number = 10, color?: string, center: Point = new Point()) {
+        super([
             new Point(edge, edge, edge), //A - 0 
             new Point(edge, -edge, edge),//B - 1
 
@@ -12,9 +14,7 @@ Surfaces.prototype.cube = (edge = 10, color) => {
 
             new Point(-edge, -edge, -edge), //G - 6
             new Point(-edge, edge, -edge), //H - 7
-
-        ],
-        [
+        ], [
             new Edge(0, 1),
             new Edge(1, 2),
             new Edge(2, 3),
@@ -29,8 +29,7 @@ Surfaces.prototype.cube = (edge = 10, color) => {
             new Edge(1, 5),
             new Edge(2, 6),
             new Edge(3, 7),
-        ],
-        [
+        ], [
             //зад
             new Polygon([0, 1, 2, 3], color || '#FF1493'),
             //перед
@@ -44,5 +43,7 @@ Surfaces.prototype.cube = (edge = 10, color) => {
             //низ
             new Polygon([5, 1, 2, 6], color || '#0000FF'),
         ],
-    )
+            center);
+    }
 }
+export default Cube;

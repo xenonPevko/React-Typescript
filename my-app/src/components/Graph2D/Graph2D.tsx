@@ -112,7 +112,7 @@ const Graph2D: React.FC = () => {
         graph.line(0, WIN.HEIGHT + WIN.BOTTOM, 0.2, WIN.BOTTOM + WIN.HEIGHT - 0.2)
     };
 
-    const printFunction = (f, color, strWidth, n = 200) => {
+    const printFunction = (f: TF, color: string, strWidth: number, n = 200) => {
         if (!graph) {
             return;
         }

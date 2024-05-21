@@ -25,7 +25,7 @@ class Polygon {
     [EDistance.distance]: number = 0;
     [EDistance.lumen]: number = 1;
 
-    constructor(points = [], color = '#dc143c') {
+    constructor(points: number[] = [], color = '#dc143c') {
         this.points = points;
         this.color = this.hexToRgb(color);
     }

@@ -1,7 +1,7 @@
 import { Member, Polynomial } from "./types/index.ts";
-import Calculator from "./Calculator.ts";
+//import Calculator from "./Calculator.ts";
 import ICalculator from "./calculators/ICalculator.ts";
-import AnyType from "./types/AnyType.ts";
+//import AnyType from "./types/AnyType.ts";
 
 class PolynomialCalculator implements ICalculator<Polynomial> {
 
@@ -10,7 +10,7 @@ class PolynomialCalculator implements ICalculator<Polynomial> {
     }
 
     removeZeros(members: Member[]): Member[] {
-        for (let i = members.length - 1; i >= 0; i--) {
+        for (let i: number = members.length - 1; i >= 0; i--) {
             if (members[i].value === 0) {
                 return members.slice(0, i);
             }

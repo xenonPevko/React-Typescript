@@ -12,13 +12,13 @@ class Surface {
     points: Point[];
     edges: Edge[];
     polygons: Polygon[];
-    animations: TAnimations[] = [];
     center: Point;
+    animations: TAnimations[] = [];
 
-    constructor(points?: Point[], edges?: Edge[], polygons?: Polygon[], center = new Point, animations = []) {
-        this.points = points;
-        this.edges = edges;
-        this.polygons = polygons;
+    constructor(points: Point[] = [], edges: Edge[] = [], polygons: Polygon[] = [], center = new Point, animations: TAnimations[] = []) {
+        this.points = points || [];
+        this.edges = edges || [];
+        this.polygons = polygons || [];
         this.center = center;
         this.animations = animations;
     }
