@@ -1,12 +1,11 @@
 import { Complex } from "../types/index.ts";
 import ICalculator from "./ICalculator.ts";
-import RealCalculator from "./RealCalculator.ts";
 
 class ComplexCalculator implements ICalculator<Complex>{
     add(a: Complex, b: Complex): Complex { return new Complex(a.re + b.re, a.im + b.im); }
     sub(a: Complex, b: Complex): Complex { return new Complex(a.re - b.re, a.im - b.im); }
     inv(a: Complex): Complex {
-        let q = a.re * a.re + a.im * a.im;
+        const q: number = a.re * a.re + a.im * a.im;
         return new Complex(a.re / q, -a.im / q);
     }
     mult(a: Complex, b: Complex): Complex {
@@ -27,9 +26,9 @@ class ComplexCalculator implements ICalculator<Complex>{
         return S;
     }
 
-    prod(a: Complex, p: number): Complex { return new Complex(a.re * p, a.im * p) }; //комплексное на скаляр (?)
+    prod(a: Complex, p: number): Complex { return new Complex(a.re * p, a.im * p) }; 
     one(): Complex { return new Complex(1); }
-    zero(): Complex { return new Complex; }
+    zero(): Complex { return new Complex(); }
 }
 
 export default ComplexCalculator;

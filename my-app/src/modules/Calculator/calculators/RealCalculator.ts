@@ -6,7 +6,7 @@ class RealCalculator implements ICalculator<number>{
     mult(a: number, b: number): number {return a * b;}
     div(a: number, b: number): number {return a / b;}
     pow(a: number, n: number): number {return Math.pow(a, n);}
-    prod(a: number, p: number) {return a * p;} //умножение числа на скаляр 
+    prod(a: number, p: number): number {return a * p;} //умножение числа на скаляр 
     one(): number {return 1;}
     zero(): number {return 0;}
 };

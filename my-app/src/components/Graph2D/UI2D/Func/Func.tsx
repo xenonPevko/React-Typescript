@@ -1,6 +1,8 @@
 import React, { KeyboardEvent } from "react";
 import { TFunction } from "../../Graph2D";
 
+import './Func.scss';
+
 type TFunc = {
     func: TFunction,
     reRender: () => void;
@@ -21,7 +23,7 @@ const Func: React.FC<TFunc> = (props: TFunc) => {
     }
 
     return (<div>
-        <input onKeyUp={(event) => changeFunction(event)} placeholder="введите фууу нкцию" />
+        <input className="func_beautyInput" onKeyUp={(event) => changeFunction(event)} placeholder="введите фууу нкцию" />
     </div>);
 }
 

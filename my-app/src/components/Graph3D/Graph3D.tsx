@@ -4,29 +4,29 @@
 для этого надо создать свой реактовый компонент, где выписать все нужные свойства
 из него торчит коллбек на изменение сцены
 
-сдедать UI3D 
+сделать UI3D 
 
-очень не уверена на счёт changeScene
-почемуто сломался wheel (вроде колёсико не туда крутится ну в плане при кручении колёсика оно не туда бежит...)
+доделать фигуры на зачёт: бутылка клейна, эллиптический цилиндр, пирамиду починить или забить на неё 
+----------------------------------------
+на счёт калькултора - смущает вычитание полиномов
+VEctCalc починить!
+
 */
 
 import React, { useEffect } from 'react';
 import Point from '../../modules/Math3D/entites/Point.ts';
 import Graph from '../../modules/Graph/Graph.ts';
 import Math3D from '../../modules/Math3D/Math3D.ts';
-import { EDistance, Edge, Light, Polygon, Surface } from '../../modules/Math3D/entites/index.ts';
+import { EDistance, Light, Polygon, Surface } from '../../modules/Math3D/entites/index.ts';
 import { TWIN3D } from '../../modules/Graph/Graph';
-//import Surfaces from '../../modules/Math3D/surfaces/Surfaces.ts';
 import {
-    Cube, Pyramid, Sphera, Cone,
-    Torus, Ellipsoid, ParabolicCylinder,
-    HyperbolicCylinder, HyperbolicParaboloid,
-    EllipticalCylinder, EllipticalParaboloid,
+    Cube, Pyramid, Sphera, Cone, Torus, Ellipsoid, ParabolicCylinder,
+    HyperbolicCylinder, HyperbolicParaboloid, EllipticalCylinder, EllipticalParaboloid,
     DoubleStripHyperboloid, SingleStripHyperboloid
 } from '../../modules/Math3D/surfaces/index.ts'
 import Checkbox3D from './Checkbox3D/Checkbox3D.tsx';
 
-import './Graph3D.css';
+import './Graph3D.scss';
 
 export enum ECustom {
     showPoints = 'showPoints',
@@ -35,20 +35,20 @@ export enum ECustom {
     animationOn = 'animationOn'
 }
 
-const Figures = {
-    'Cube': Cube,
-    'Sphera': Sphera,
-    'Pyramid': Pyramid,
-    'Cone': Cone,
-    'Torus': Torus,
-    'Ellipsoid': Ellipsoid,
-    'ParabolicCylinder': ParabolicCylinder,
-    'HyperbolicCylinder': HyperbolicCylinder,
-    'HyperbolicParaboloid': HyperbolicParaboloid,
-    'EllipticalCylinder': EllipticalCylinder,
-    'EllipticalParaboloid': EllipticalParaboloid,
-    'DoubleStripHyperboloid': DoubleStripHyperboloid,
-    'SingleStripHyperboloid': SingleStripHyperboloid
+enum EFigure {
+    Cube = 'Cube',
+    Sphera = 'Sphera',
+    Pyramid = 'Pyramid',
+    Cone = 'Cone',
+    Torus = 'Torus',
+    Ellipsoid = 'Ellipsoid',
+    ParabolicCylinder = 'ParabolicCylinder',
+    HyperbolicCylinder = 'HyperbolicCylinder',
+    HyperbolicParaboloid = 'HyperbolicParaboloid',
+    EllipticalCylinder = 'EllipticalCylinder',
+    EllipticalParaboloid = 'EllipticalParaboloid',
+    DoubleStripHyperboloid = 'DoubleStripHyperboloid',
+    SingleStripHyperboloid = 'SingleStripHyperboloid'
 }
 
 const Graph3D: React.FC = () => {
@@ -65,6 +65,13 @@ const Graph3D: React.FC = () => {
     let graph: Graph | null = null;
     let LIGHT: Light = new Light(-40, 15, 0, 1500);
     let math3D: Math3D = new Math3D({ WIN });
+    let scene: Surface[] = [new Sphera()];
+
+    let dx: number = 0;
+    let dy: number = 0;
+
+    // флажки
+    let canMove: boolean = false;
 
     /* не надо??? мб
     let surface: Surface = new Surface();
@@ -75,11 +82,6 @@ const Graph3D: React.FC = () => {
     let polygons = [new Polygon()];
     */
 
-    let scene: Surface[] = [new Sphera()];
-
-    // флажки
-    let canMove: boolean = false;
-
     const custom = {
         [ECustom.showPoints]: false,
         [ECustom.showEdges]: false,
@@ -87,9 +89,23 @@ const Graph3D: React.FC = () => {
         [ECustom.animationOn]: true
     }
 
+    const figure = {
+        [EFigure.Cube]: Cube,
+        [EFigure.Sphera]: Sphera,
+        [EFigure.Pyramid]: Pyramid,
+        [EFigure.Cone]: Cone,
+        [EFigure.Torus]: Torus,
+        [EFigure.Ellipsoid]: Ellipsoid,
+        [EFigure.ParabolicCylinder]: ParabolicCylinder,
+        [EFigure.HyperbolicCylinder]: HyperbolicCylinder,
+        [EFigure.HyperbolicParaboloid]: HyperbolicParaboloid,
+        [EFigure.EllipticalCylinder]: EllipticalCylinder,
+        [EFigure.EllipticalParaboloid]: EllipticalParaboloid,
+        [EFigure.DoubleStripHyperboloid]: DoubleStripHyperboloid,
+        [EFigure.SingleStripHyperboloid]: SingleStripHyperboloid
+    }
 
-    let dx: number = 0;
-    let dy: number = 0;
+    // коллбэки -----------------------------------
 
     const mouseup = (): void => {
         canMove = false;
@@ -119,19 +135,13 @@ const Graph3D: React.FC = () => {
 
     const wheel = (event: WheelEvent): void => {
         event.preventDefault();
-        const delta = (event.deltaY > 0) ? 1.1 : 0.9;
+        const delta = (event.deltaY < 0) ? 1.1 : 0.9;
         const matrix = math3D.zoom(delta);
         scene.forEach(surface => surface.points.forEach(point =>
             math3D.transform(matrix, point)));
     }
 
-    setInterval(() => {
-        scene.forEach(surface => surface.doAnimation(math3D));
-    }, 50);
-
-    let currentFPS: number = 0;
-    let FPS: number = 0;
-    let timestamp: number = Date.now();
+    // рендер сцена  -----------------------------------
 
     const renderScene = (FPS: number): void => {
         if (!graph) {
@@ -195,21 +205,7 @@ const Graph3D: React.FC = () => {
         graph.text(-4.8, 4.5, `фпс = ${FPS}`, '#b55a5d');
     }
 
-    const animLoop = () => {
-        FPS++;
-        const currentTimestamp = Date.now();
-        if (currentTimestamp - timestamp >= 1000) {
-            timestamp = currentTimestamp;
-            currentFPS = FPS;
-            FPS = 0;
-        }
-
-        renderScene(currentFPS);
-
-        window.requestAnimationFrame(animLoop);
-    }
-
-    animLoop();
+    // для шняг в разметке -----------------------------------
 
     const changeValue = (flag: ECustom, value: boolean) => {
         custom[flag] = value;
@@ -218,9 +214,9 @@ const Graph3D: React.FC = () => {
     const changeScene = (event: React.ChangeEvent<HTMLSelectElement>) => {
         let value: string = event.target.value;
         if (value) {
-            const Figure = Figures[value];
-            if (Figure)
-                scene = [new Figure()]
+            const currentFigure = figure[value];
+            if (currentFigure)
+                scene = [new currentFigure()]
             return scene;
 
             /*if (value == 'solarSystem') {
@@ -236,6 +232,8 @@ const Graph3D: React.FC = () => {
         }
     };
 
+    // -----------------------------------
+
     useEffect(() => {
         graph = new Graph({
             WIN,
@@ -245,16 +243,43 @@ const Graph3D: React.FC = () => {
             callbacks: { wheel, mousemove, mouseleave, mouseup, mousedown }
         });
 
+        const interval = setInterval(() => {
+            scene.forEach(surface => surface.doAnimation(math3D));
+        }, 50);
+
+        let currentFPS: number = 0;
+        let FPS: number = 0;
+        let timestamp: number = Date.now();
+        let idLoop: number;
+
+        const animLoop = () => {
+            FPS++;
+            const currentTimestamp = Date.now();
+            if (currentTimestamp - timestamp >= 1000) {
+                timestamp = currentTimestamp;
+                currentFPS = FPS;
+                FPS = 0;
+            }
+
+            renderScene(currentFPS);
+
+            window.requestAnimationFrame(animLoop);
+        }
+
+        animLoop();
+
         return () => {
             graph = null;
+            window.cancelAnimationFrame(idLoop);
+            clearInterval(interval);
         }
     }, [graph]);
 
-    return (<div className='beautyDiv3D'>
+    return (<div className='g3D_beautyDiv'>
         <div>
-            <canvas className="canvas" id='graph3DCanvas'> </canvas>
+            <canvas className="g3D_bestCanvas" id='graph3DCanvas'> </canvas>
         </div>
-        <div className='div3D'>
+        <div className='g3D_div3D'>
             <Checkbox3D
                 text='точки ннада?'
                 id="points"
@@ -287,61 +312,24 @@ const Graph3D: React.FC = () => {
                 changeValue={changeValue}
             />
         </div>
-        <div className='div3D'>
-            <select onChange={changeScene} id="selectFigures">
-                <option value="Sphera">сфера</option>
-                <option value="Cube">кубик</option>
-                <option value="Pyramid">пирамидка</option>
-                <option value="Torus">Бог грома</option>
-                <option value="Cone">конус</option>
-                <option value="Ellipsoid">эллипсоид</option>
-                <option value="HyperbolicCylinder">гиперболический цилиндр</option>
-                <option value="ParabolicCylinder">параболический цилиндр</option>
-                <option value="EllipticalCylinder">эллиптический цилиндр</option>
-                <option value="SingleStripHyperboloid">однополосной гиперболоид</option>
-                <option value="DoubleStripHyperboloid">двуполосной гиперболоид</option>
-                <option value="EllipticalParaboloid">эллиптический параболоид</option>
-                <option value="HyperbolicParaboloid">чипсина</option>
+        <div className='g3D_div3D'>
+            <select className='g3D_selectFigures' onChange={changeScene} id="selectFigures">
+                <option value={[EFigure.Sphera]}>сфера</option>
+                <option value={[EFigure.Cube]}>кубик</option>
+                <option value={[EFigure.Pyramid]}>пирамидка</option>
+                <option value={[EFigure.Torus]}>Бог грома</option>
+                <option value={[EFigure.Cone]}>конус</option>
+                <option value={[EFigure.Ellipsoid]}>эллипсоид</option>
+                <option value={[EFigure.HyperbolicCylinder]}>гиперболический цилиндр</option>
+                <option value={[EFigure.ParabolicCylinder]}>параболический цилиндр</option>
+                <option value={[EFigure.EllipticalCylinder]}>эллиптический цилиндр</option>
+                <option value={[EFigure.SingleStripHyperboloid]}>однополосной гиперболоид</option>
+                <option value={[EFigure.DoubleStripHyperboloid]}>двуполосной гиперболоид</option>
+                <option value={[EFigure.EllipticalParaboloid]}>эллиптический параболоид</option>
+                <option value={[EFigure.HyperbolicParaboloid]}>чипсина</option>
             </select>
         </div>
     </div>)
 }
-
-/*return (<div>
-                            <div className="beautyDiv">
-                                <canvas id='graph3DCanvas'> </canvas>
-                            </div>
-
-                            <div className="checkbox">
-                                <br><input className="customScene" data-custom="showPoints" type="checkbox" id="showPoints">точки ннада?</input></br>
-                                <br><input className="customScene" data-custom="showEdges" type="checkbox" id="showEdges">рёбра ннада?</input> </br>
-                                <br><input className="customScene" data-custom="showPolygons" type="checkbox" id="showPolygons" checked>грани ннада?</input> </br>
-                                <br><input className="customScene" data-custom="animationOn" type="checkbox" id="animationOn" checked>анимацию ннада?</input></br>
-                                <br><input className="customScene" data-custom="shadowOn" type="checkbox" id="shadowOn">тени ннада?</input></br>
-                            </div>
-
-                            <div> // Здеся надо прописать названия с большой буквы!!!!!!!!!!!!!!!!!!!!!
-                                <select id="selectFigures" class="selectFigures">
-                                    <option value="empty">выберите фигурку</option>
-                                    <option value="cube">кубик</option>
-                                    <option value="pyramid">пирамидка</option>
-                                    <option value="sphera">сфера</option>
-                                    <option value="torus">Бог грома</option>
-                                    <option value="ring">колечко</option>
-                                    <option value="solarSystem">солнечная система</option>
-
-                                    <option value="KleinBottle">бутылка Клейна</option>
-                                    <option value="cone">конус</option>
-                                    <option value="ellipsoid">эллипсоид</option>
-                                    <option value="hyperbolicCylinder">гиперболический цилиндр</option>
-                                    <option value="parabolicCylinder">параболический цилиндр</option>
-                                    <option value="ellipticalCylinder">эллиптический цилиндр</option>
-                                    <option value="singleStripHyperboloid">однополосной гиперболоид</option>
-                                    <option value="doubleStripHyperboloid">двуполосной гиперболоид</option>
-                                    <option value="ellipticalParaboloid">эллиптический параболоид</option>
-                                    <option value="hyperbolicParaboloid">чипсина</option>
-                                </select>
-                            </div>
-                        </div>)*/
 
 export default Graph3D;

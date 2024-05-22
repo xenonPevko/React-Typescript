@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { TFunction } from "../Graph2D.tsx";
 import Func from "./Func/Func.tsx";
 
+import './UI2D.scss';
+
 type TUI2D = {
     funcs: TFunction[];
     reRender: () => void;
 }
 
 const UI2D: React.FC<TUI2D> = (props: TUI2D) => {
-    // в старом коде : const { funcs, reRender } = props;
     const { funcs, reRender } = props;
     const [count, setCount] = useState(funcs.length);
 
@@ -25,7 +26,7 @@ const UI2D: React.FC<TUI2D> = (props: TUI2D) => {
 
     return (<>
         <button
-            className="beautyButton"
+            className="ui2D_beautyButton"
             onClick={addFunction}
         >добавить фууу нкцию</button>
         <div>{

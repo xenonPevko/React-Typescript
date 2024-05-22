@@ -1,4 +1,5 @@
 import AnyType from "../types/AnyType.ts";
+import AnyCalculator from "./AnyCalculator.ts";
 import { Vector } from "../types/index.ts";
 import ICalculator from "./ICalculator.ts";
 import RealCalculator from "./RealCalculator.ts";
@@ -11,7 +12,7 @@ class VectorCalculator implements ICalculator<Vector> {
         this.calc = calc;
     }
 
-    div(a: Vector, b: Vector): null { return null; }
+    div(): null { return null; }
 
     add(a: Vector, b: Vector): Vector {
         return new Vector(a.values.map((elem, i) => this.calc.add(elem, b.values[i])));
@@ -40,8 +41,8 @@ class VectorCalculator implements ICalculator<Vector> {
 
     prod(a: Vector, p: number): Vector {
         return new Vector(a.values.map(elem => this.calc.prod(elem, p)));
-    } //умножение на скаляр 
-
+    }
+    
     one(length: number): Vector {
         const values: AnyType[] = [];
         for (let i = 0; i < length; i++) {

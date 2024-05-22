@@ -1,0 +1,25 @@
+.rpg {
+    &_beautyDiv {
+        color: #b55a5d; 
+        text-align: center;
+        border-radius: 20px;
+        padding: 10px; 
+        background: #fde4ee; 
+        border: 2px solid #b55a5d; 
+        margin: 10px;
+    }
+
+    &_usualImg {
+        height: 300px;
+    }
+} 
+
+.beautyButton {
+    border-radius: 20px;
+    padding: 10px; 
+    background: rgb(255, 227, 232); 
+    border: 2px solid #b55a5d; 
+    margin: 10px;
+    font-size: 15px;
+    color: #b55a5d; 
+  }

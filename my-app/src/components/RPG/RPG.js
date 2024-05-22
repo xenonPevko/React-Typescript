@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import RPGGame from '../../modules/RPG/RPGGame';
 
-import './RPG.css';
+import './RPG.scss';
 
 const RPG = () => {
 
@@ -11,7 +11,7 @@ const RPG = () => {
         game.goToRoom();
     });
 
-    return (<div class="beautyDiv">
+    return (<div className="rpg_beautyDiv">
         <h1>бедный студент (мне его жалко)</h1>
         <div>
             <span id="roomTitle">title</span>
@@ -26,7 +26,7 @@ const RPG = () => {
         </div>
         <p> </p>
         <div>
-            <img id="roomImage" class="usualImg" alt=""></img>
+            <img id="roomImage" className="rpg_usualImg" alt=""></img>
         </div>
         <div id="actions"></div>
     </div>)

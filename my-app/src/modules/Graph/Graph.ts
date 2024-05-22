@@ -102,7 +102,7 @@ class Graph {
         this.context.closePath();
     };
 
-    text(x: number, y: number, text = 'enter text', color = '#000000', size = '17px arial', isGraphName = false): void {
+    text(x: number, y: number, text: string = 'enter text', color: string = '#000000', size: string = '17px arial', isGraphName: boolean = false): void {
         this.context.fillStyle = color;
         this.context.font = size;
         if (isGraphName) {

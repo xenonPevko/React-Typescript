@@ -1,7 +1,5 @@
 import { Member, Polynomial } from "./types/index.ts";
-//import Calculator from "./Calculator.ts";
 import ICalculator from "./calculators/ICalculator.ts";
-//import AnyType from "./types/AnyType.ts";
 
 class PolynomialCalculator implements ICalculator<Polynomial> {
 

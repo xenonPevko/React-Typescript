@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Header from './components/Header/Header.tsx';
-import MainScreen from './components/MainScreen/MainScreen';
+import MainScreen from './components/MainScreen/MainScreen.tsx';
 import Graph2D from './components/Graph2D/Graph2D.tsx';
 import Graph3D from './components/Graph3D/Graph3D.tsx';
 import UniCalculator from './components/UniCalculator/UniCalculator.tsx';

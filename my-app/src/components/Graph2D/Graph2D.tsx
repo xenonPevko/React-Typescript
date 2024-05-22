@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Graph from "../../modules/Graph/Graph.ts";
 import UI2D from "./UI2D/UI2D.tsx";
 
-import './Graph2D.css';
+import './Graph2D.scss';
 
 type TF = (x: number) => number;
 
@@ -150,7 +150,7 @@ const Graph2D: React.FC = () => {
         }
     }, [graph]);
 
-    return (<div className="beautyDiv">
+    return (<div className="g2D_beautyDiv">
         <div>
             <canvas id='canvas2D' width='300' height='300'></canvas>
         </div>

@@ -1,18 +1,21 @@
 import React from 'react';
+import p1ImgSrc from 'C:/Users/YUSERVICE/Desktop/React+Typescript/my-app/src/assets/p1.jpg';
+import p2ImgSrc from 'C:/Users/YUSERVICE/Desktop/React+Typescript/my-app/src/assets/p2.jpg';
+import p3ImgSrc from 'C:/Users/YUSERVICE/Desktop/React+Typescript/my-app/src/assets/p3.jpg';
 
-import './AboutMe.css';
+import './AboutMe.scss';
 
 const AboutMe: React.FC = () => {
-    return (<div className="beautyDiv">
+    return (<div className="am_beautyDiv">
         <h1> здравствуйте меня зовут кристина и эта страничька про меня </h1>
         <h3> боюсь я пока что мало соображаю так что на ней я покажу чему уже научилась и заодно расскажу кто я </h3>
-        <h4><i> &darr; наведите курсор на картинки ниже чтобы узнать о них больше... &darr; </i></h4>
-        <div>
-            <img src="assets/p3.jpg" alt='это я (бешусь по дороге в универ)'></img>
+        <h4><i> &darr; вот такая вота я &darr; </i></h4>
+        <div className='am_divAM'>
+            <img src={p1ImgSrc} className='am_usualImg' alt='это я (бешусь по дороге в универ)'></img>
 
-            <img src="assets/p2.jpg" alt='это я (плачю из-за количества домашки)'></img>
+            <img src={p2ImgSrc} className='am_usualImg' alt='это я (плачю из-за количества домашки)'></img>
 
-            <img src="assets/p1.jpg" alt='это я (надвигаюсь)'></img>
+            <img src={p3ImgSrc} className='am_usualImg' alt='это я (надвигаюсь)'></img>
         </div>
 
         <p> если вкратце я:

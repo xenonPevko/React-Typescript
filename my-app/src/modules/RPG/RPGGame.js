@@ -273,7 +273,7 @@ class RPGGame {
             (function (i) {
                 var action = room.actions[i];
                 var button = document.createElement('button');
-                //button.classList.add("beautyButton");
+                button.classList.add("beautyButton");
                 button.innerHTML = action.title;
                 button.addEventListener('click', function () {
                     game.roomId = action.id;
