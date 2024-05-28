@@ -22,7 +22,8 @@ import { TWIN3D } from '../../modules/Graph/Graph';
 import {
     Cube, Pyramid, Sphera, Cone, Torus, Ellipsoid, ParabolicCylinder,
     HyperbolicCylinder, HyperbolicParaboloid, EllipticalCylinder, EllipticalParaboloid,
-    DoubleStripHyperboloid, SingleStripHyperboloid
+    DoubleStripHyperboloid, SingleStripHyperboloid,
+    KleinBottle
 } from '../../modules/Math3D/surfaces/index.ts'
 import Checkbox3D from './Checkbox3D/Checkbox3D.tsx';
 
@@ -48,7 +49,8 @@ enum EFigure {
     EllipticalCylinder = 'EllipticalCylinder',
     EllipticalParaboloid = 'EllipticalParaboloid',
     DoubleStripHyperboloid = 'DoubleStripHyperboloid',
-    SingleStripHyperboloid = 'SingleStripHyperboloid'
+    SingleStripHyperboloid = 'SingleStripHyperboloid',
+    KleinBottle = 'KleinBottle'
 }
 
 const Graph3D: React.FC = () => {
@@ -102,7 +104,8 @@ const Graph3D: React.FC = () => {
         [EFigure.EllipticalCylinder]: EllipticalCylinder,
         [EFigure.EllipticalParaboloid]: EllipticalParaboloid,
         [EFigure.DoubleStripHyperboloid]: DoubleStripHyperboloid,
-        [EFigure.SingleStripHyperboloid]: SingleStripHyperboloid
+        [EFigure.SingleStripHyperboloid]: SingleStripHyperboloid,
+        [EFigure.KleinBottle]: KleinBottle
     }
 
     // коллбэки -----------------------------------
@@ -327,6 +330,7 @@ const Graph3D: React.FC = () => {
                 <option value={[EFigure.DoubleStripHyperboloid]}>двуполосной гиперболоид</option>
                 <option value={[EFigure.EllipticalParaboloid]}>эллиптический параболоид</option>
                 <option value={[EFigure.HyperbolicParaboloid]}>чипсина</option>
+                <option value={[EFigure.KleinBottle]}>бутылочка Клейна</option>
             </select>
         </div>
     </div>)

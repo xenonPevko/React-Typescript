@@ -11,6 +11,7 @@ import EllipticalCylinder from "./EllipticalCylinder.ts";
 import EllipticalParaboloid from "./EllipticalParaboloid.ts";
 import DoubleStripHyperboloid from "./DoubleStripHyperboloid.ts";
 import SingleStripHyperboloid from "./SingleStripHyperboloid.ts";
+import KleinBottle from "./KleinBottle.ts";
 
 export {
     Cube, Pyramid, Sphera, Cone,
@@ -18,4 +19,5 @@ export {
     HyperbolicCylinder, HyperbolicParaboloid,
     EllipticalCylinder, EllipticalParaboloid,
     DoubleStripHyperboloid, SingleStripHyperboloid,
+    KleinBottle
 };
