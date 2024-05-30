@@ -82,6 +82,7 @@ const Graph3D: React.FC = () => {
     let points = [new Point()];
     let edges = [new Edge()];
     let polygons = [new Polygon()];
+    <option value={[EFigure.Pyramid]}>пирамидка</option>
     */
 
     const custom = {
@@ -319,7 +320,6 @@ const Graph3D: React.FC = () => {
             <select className='g3D_selectFigures' onChange={changeScene} id="selectFigures">
                 <option value={[EFigure.Sphera]}>сфера</option>
                 <option value={[EFigure.Cube]}>кубик</option>
-                <option value={[EFigure.Pyramid]}>пирамидка</option>
                 <option value={[EFigure.Torus]}>Бог грома</option>
                 <option value={[EFigure.Cone]}>конус</option>
                 <option value={[EFigure.Ellipsoid]}>эллипсоид</option>

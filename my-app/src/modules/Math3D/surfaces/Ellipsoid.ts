@@ -45,9 +45,9 @@ class Ellipsoid extends Surface {
         //полигоны
         for (let i = 0; i < points.length; i++) {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
-                polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color || '#dc143c'));
+                polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color || '#DA70D6'));
             } else if (i + count < points.length && (i + 1) % count === 0) {
-                polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color || '#dc143c'))
+                polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color || '#DA70D6'))
             }
         }
 
