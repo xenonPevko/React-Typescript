@@ -4,12 +4,12 @@ import UI2D from "./UI2D/UI2D.tsx";
 
 import './Graph2D.scss';
 
-type TF = (x: number) => number;
+export type TF = (x: number) => number;
 
 export type TFunction = {
     f: TF;
     color: string;
-    width: number;
+    lineWidth: number;
 }
 
 const Graph2D: React.FC = () => {
@@ -21,11 +21,11 @@ const Graph2D: React.FC = () => {
         HEIGHT: 20
     }
     const funcs: TFunction[] = [];
-    let canMove = false;
+    let canMove: boolean = false;
 
-    const wheel = (event) => {
+    const wheel = (event: WheelEvent) => {
         const ZOOM_STEP = 0.2;
-        let delta = (event.wheelDelta > 0) ? -ZOOM_STEP : ZOOM_STEP;
+        let delta = (event.deltaY > 0) ? -ZOOM_STEP : ZOOM_STEP;
         if (WIN.WIDTH + delta > 0) {
             WIN.WIDTH += delta;
             WIN.HEIGHT += delta;
@@ -47,7 +47,7 @@ const Graph2D: React.FC = () => {
         canMove = true;
     };
 
-    const mousemove = (event) => {
+    const mousemove = (event: MouseEvent) => {
         if (canMove && graph) {
             WIN.LEFT -= graph.sx(event.movementX);
             WIN.BOTTOM -= graph.sy(event.movementY);
@@ -112,28 +112,29 @@ const Graph2D: React.FC = () => {
         graph.line(0, WIN.HEIGHT + WIN.BOTTOM, 0.2, WIN.BOTTOM + WIN.HEIGHT - 0.2)
     };
 
-    const printFunction = (f: TF, color: string, strWidth: number, n = 200) => {
-        if (!graph) {
-            return;
+    const printFunction = ({ f, color = "#010101", lineWidth = 2 }: TFunction): void => {
+        if (graph) {
+            const n = 200;
+            let x: number = WIN.LEFT;
+            let dx: number = WIN.WIDTH / n;
+            while (x <= WIN.WIDTH + WIN.LEFT) {
+                graph.line(x, f(x), x + dx, f(x + dx), color, lineWidth)
+                x += dx;
+            };
         }
-        let x = WIN.LEFT;
-        let dx = WIN.WIDTH / n;
-        while (x <= WIN.WIDTH + WIN.LEFT) {
-            graph.line(x, f(x), x + dx, f(x + dx), color, strWidth)
-            x += dx;
-        };
     };
 
     //рендер.
     const render = () => {
-        if (!graph) {
-            return;
+        if (graph) {
+            graph.clear();
+            printOXY();
+            funcs.forEach(func => {
+                if (func) {
+                    printFunction(func);
+                }
+            });
         }
-        graph.clear();
-        printOXY();
-        funcs.forEach(func =>
-            func && printFunction(func.f, func.color, func.width)
-        );
     };
 
     useEffect(() => {
@@ -145,6 +146,7 @@ const Graph2D: React.FC = () => {
             callbacks: { wheel, mousemove, mouseleave, mouseup, mousedown }
         });
         render();
+        
         return () => {
             graph = null;
         }

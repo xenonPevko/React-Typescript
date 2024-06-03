@@ -1,7 +1,7 @@
 import React from 'react';
-import p1ImgSrc from 'C:/Users/YUSERVICE/Desktop/React+Typescript/my-app/src/assets/p1.jpg';
-import p2ImgSrc from 'C:/Users/YUSERVICE/Desktop/React+Typescript/my-app/src/assets/p2.jpg';
-import p3ImgSrc from 'C:/Users/YUSERVICE/Desktop/React+Typescript/my-app/src/assets/p3.jpg';
+import p1ImgSrc from '../../assets/p1.jpg';
+import p2ImgSrc from '../../assets/p2.jpg';
+import p3ImgSrc from '../../assets/p3.jpg';
 
 import './AboutMe.scss';
 

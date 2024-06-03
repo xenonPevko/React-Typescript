@@ -5,12 +5,6 @@
 из него торчит коллбек на изменение сцены
 
 сделать UI3D 
-
-доделать фигуры на зачёт: бутылка клейна, эллиптический цилиндр, пирамиду починить или забить на неё 
-----------------------------------------
-на счёт калькултора - смущает вычитание полиномов
-VEctCalc починить!
-
 */
 
 import React, { useEffect } from 'react';
@@ -24,7 +18,7 @@ import {
     HyperbolicCylinder, HyperbolicParaboloid, EllipticalCylinder, EllipticalParaboloid,
     DoubleStripHyperboloid, SingleStripHyperboloid,
     KleinBottle
-} from '../../modules/Math3D/surfaces/index.ts'
+} from '../../modules/Math3D/surfaces/index.ts' 
 import Checkbox3D from './Checkbox3D/Checkbox3D.tsx';
 
 import './Graph3D.scss';

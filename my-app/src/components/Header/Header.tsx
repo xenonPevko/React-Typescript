@@ -12,7 +12,7 @@ const Header: React.FC<THeader> = (props: THeader) => {
 
     return (<>
         <p className="header_beautyP">
-            <h1> мой личный микрофреймворк! </h1>
+            <h1>ϟ мой личный микрофреймворк ϟ</h1>
         </p>
         <div className="header_beautyDiv">
             <button className="header_beautyButton" onClick={() => setPageName(EPAGES.MAINSCREEN)}>сёрф ми ту зе мейн скрин</button>

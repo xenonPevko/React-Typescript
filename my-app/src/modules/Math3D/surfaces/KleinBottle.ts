@@ -310,5 +310,5 @@ class KleinBottle extends Surface {
         super(points, edges, polygons, center);
     }
 }
-
+ 
 export default KleinBottle;
